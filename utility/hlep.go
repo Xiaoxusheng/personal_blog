@@ -5,4 +5,4 @@ type ResponseError struct {
 	Code  int
 }
 
-var MySigningKey string = "my_bl^%%^og_84775M"
+var MySigningKey = []byte("my_bl^%%^og_84775M")

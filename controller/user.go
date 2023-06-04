@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"personal_blog/models"
@@ -26,6 +27,7 @@ func Login(c *gin.Context) {
 		panic("必填参数不能为空!")
 	}
 	f := models.GetUser(username, password)
+	fmt.Println("f", f.Identification)
 	if f.Identification == "" {
 		c.JSON(http.StatusOK, gin.H{
 			"code": 404,
@@ -33,11 +35,13 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
+	token := utility.GetToken(f.Identification)
+	fmt.Println("token", token)
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "登陆成功！",
 		"data": gin.H{
-			"token": utility.GetToken(f.Identification),
+			"token": token,
 		},
 	})
 
