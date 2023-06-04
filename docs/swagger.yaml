@@ -1,0 +1,61 @@
+info:
+  contact: {}
+paths:
+  /user/login:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 用户名 密码 为必填
+      parameters:
+      - description: 用户名
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code": 200, "msg": "登陆成功","token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRlbnRseSI6IjZhMmE0NjJjLWExMDctNDhlYS04MmU1LTc0ZTMwODMyN2U2ZiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpc3MiOiJ0ZXN0IiwiZXhwIjoxNjc4Nzg2NTM1fQ.P4dJ_f2UGhKbpiIqHxTxghRKwKIlCpF2XjryHCSnKKk"}'
+          schema:
+            type: ""
+      summary: 登录接口
+      tags:
+      - 公共方法
+  /user/register:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 用户名 密码 邮箱 为必填
+      parameters:
+      - description: 用户名
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: 邮箱
+        in: formData
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{'
+          schema:
+            type: ""
+      summary: 注册接口
+      tags:
+      - 公共方法
+swagger: "2.0"

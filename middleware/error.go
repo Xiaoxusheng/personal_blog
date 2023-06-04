@@ -9,8 +9,9 @@ func Error() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{
-					"err": err,
+				c.JSON(http.StatusOK, gin.H{
+					"code": 1,
+					"err":  err,
 				})
 			}
 		}()

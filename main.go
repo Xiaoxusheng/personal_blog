@@ -8,7 +8,7 @@ import (
 func main() {
 	r := router.Router()
 
-	err := r.Run()
+	err := r.Run(":8080")
 	if err != nil {
 		log.Panicln("star is err:" + err.Error())
 		return
