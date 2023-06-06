@@ -12,7 +12,6 @@ import (
 func Router() *gin.Engine {
 	r := gin.Default()
 
-	r.Use(gin.Logger())
 	//捕获错误中间件
 	r.Use(middleware.Error())
 

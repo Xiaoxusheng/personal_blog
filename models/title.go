@@ -1,8 +1,11 @@
 package models
 
-import "personal_blog/db"
+import (
+	"fmt"
+	"personal_blog/db"
+)
 
-type Blog_posts struct {
+type Blog struct {
 	Id             int    `json:"id"`
 	Identification string `json:"identification"`
 	Content        string `json:"content"`
@@ -15,16 +18,17 @@ type Blog_posts struct {
 }
 
 func InsertBlogPosts(identification, content, title, create_time, ip, update_time string, category int, status int) error {
-	_, err := db.DB.Exec("insert  into blog_post(identification,content,status,title,create_time,ip,update_time,category) value (?,?,?,?,?,?,?,?)", identification, content, status, title, create_time, ip, update_time, category)
+	_, err := db.DB.Exec("insert  into blog(identification,content,status,title,create_time,ip,update_time,category) value (?,?,?,?,?,?,?,?)", identification, content, status, title, create_time, ip, update_time, category)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	return nil
 }
 
 func GetByTitle(title string) error {
-	b := Blog_posts{}
-	err := db.DB.Get(&b, "select * from blog_post wheretitle=? ", title)
+	b := Blog{}
+	err := db.DB.Get(&b, "select * from blog where title=? ", title)
 	if err != nil {
 		return err
 	}

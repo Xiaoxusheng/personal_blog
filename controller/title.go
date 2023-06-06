@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"personal_blog/models"
@@ -14,7 +15,7 @@ import (
 // @Param title formData string true "文章标题"
 // @Param category formData string true "文章分类 0为技术类 1为生活类"
 // @Param content formData string true "文章内容 "
-// @Param token header string true "token"
+// @Param Authorization header string true "token"
 // @Schemes
 // @Description title category content token 为必填
 // @Tags 公共方法
@@ -29,6 +30,7 @@ func AddTitle(c *gin.Context) {
 	if title == "" || category == "" || content == "" {
 		panic("必填参数不能为空!")
 	}
+	fmt.Println(title, content, category)
 	categorys, err := strconv.Atoi(category)
 	err = models.GetByTitle(title)
 	if err == nil {

@@ -1,6 +1,42 @@
 info:
   contact: {}
 paths:
+  /user/addtitle:
+    post:
+      consumes:
+      - application/json
+      description: title category content token 为必填
+      parameters:
+      - description: 文章标题
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: 文章分类 0为技术类 1为生活类
+        in: formData
+        name: category
+        required: true
+        type: string
+      - description: '文章内容 '
+        in: formData
+        name: content
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"添加好友成功！"}'
+          schema:
+            type: string
+      summary: 添加文章接口
+      tags:
+      - 公共方法
   /user/login:
     post:
       consumes:
