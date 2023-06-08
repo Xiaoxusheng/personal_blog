@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"personal_blog/db"
 	"personal_blog/models"
 	"personal_blog/utility"
 )
@@ -104,4 +106,34 @@ func Register(c *gin.Context) {
 		"code": 200,
 		"msg":  "注册成功！",
 	})
+}
+
+// @Summary 退出登录接口
+// @Schemes
+// @title My awesome API
+// @version 1.0
+// @host localhost:8080
+// @Param Authorization header string true "token"
+// @Description token 为必填
+// @Tags 公共方法
+// @Accept json
+// @Produce json
+//
+//	@Success 200 { object } "{ "code": 200, "msg": "退出登录成功！" }"
+//
+// @Router /user/logout [get]
+func Logout(c *gin.Context) {
+	identification, exists := c.Get("Identification")
+	ctx := context.Background()
+	if exists {
+		_, err := db.Rdb.Del(ctx, identification.(string)).Result()
+		if err != nil {
+			panic(err)
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"msg":  "退出登录成功！",
+	})
+
 }

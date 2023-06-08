@@ -6,7 +6,7 @@
     "paths": {
         "/user/addarticle": {
             "post": {
-                "description": "title category content token 为必填",
+                "description": "title category只能为0 或1 content token 为必填",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -172,6 +172,38 @@
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"msg\": \"登陆成功\",\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRlbnRseSI6IjZhMmE0NjJjLWExMDctNDhlYS04MmU1LTc0ZTMwODMyN2U2ZiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpc3MiOiJ0ZXN0IiwiZXhwIjoxNjc4Nzg2NTM1fQ.P4dJ_f2UGhKbpiIqHxTxghRKwKIlCpF2XjryHCSnKKk\"}",
+                        "schema": {
+                            "type": ""
+                        }
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "get": {
+                "description": "token 为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "退出登录接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 200, \"msg\": \"退出登录成功！\" }",
                         "schema": {
                             "type": ""
                         }

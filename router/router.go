@@ -15,7 +15,11 @@ func Router() *gin.Engine {
 	//捕获错误中间件
 	r.Use(middleware.Error())
 
+	r.Use(middleware.RequetLimite())
+
 	r.Use(middleware.Cors())
+
+	r.Use(middleware.LimitIp())
 
 	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
@@ -24,6 +28,7 @@ func Router() *gin.Engine {
 
 	{
 		user.POST("/login", controller.Login)
+		user.GET("/logout", middleware.ParseToken(), controller.Logout)
 		user.POST("/register", controller.Register)
 		user.POST("/addarticle", middleware.ParseToken(), controller.AddArticle)
 		user.GET("/articlelist", middleware.ParseToken(), controller.GetArticle)

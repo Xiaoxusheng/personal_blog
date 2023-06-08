@@ -5,7 +5,7 @@ paths:
     post:
       consumes:
       - multipart/form-data
-      description: title category content token 为必填
+      description: title category只能为0 或1 content token 为必填
       parameters:
       - description: 文章标题
         in: formData
@@ -120,6 +120,27 @@ paths:
           schema:
             type: ""
       summary: 登录接口
+      tags:
+      - 公共方法
+  /user/logout:
+    get:
+      consumes:
+      - application/json
+      description: token 为必填
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "msg": "退出登录成功！" }'
+          schema:
+            type: ""
+      summary: 退出登录接口
       tags:
       - 公共方法
   /user/register:
