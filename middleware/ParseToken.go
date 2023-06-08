@@ -55,9 +55,6 @@ func ParseToken() gin.HandlerFunc {
 			panic("未知错误！")
 		}
 
-		//if user.Identification == "" {
-		//	return
-		//}
 		c.Set("Identification", user.Identification)
 		fmt.Println("username", user.Identification)
 		result, err := db.Rdb.Get(ctx, user.Identification).Result()

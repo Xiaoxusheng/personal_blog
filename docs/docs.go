@@ -260,7 +260,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{",
+                        "description": "{\t\"code\": 200,\t\"msg\": \"注册成功！\" \t}",
                         "schema": {
                             "type": ""
                         }
@@ -320,7 +320,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\":200,\"msg\":\"添加成功！\"}",
+                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
                         "schema": {
                             "type": "string"
                         }

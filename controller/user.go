@@ -65,10 +65,7 @@ func Login(c *gin.Context) {
 // @Accept multipart/form-data
 // @Produce json
 //
-//	@Success 200 { object } "{
-//	   "code": 200,
-//	   "msg": "注册成功！"
-//	}"
+// @Success 200 { object } "{	"code": 200,	"msg": "注册成功！" 	}"
 //
 // @Router /user/register [post]
 // TODO 用户注册

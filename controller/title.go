@@ -143,7 +143,7 @@ func DeleteArticle(c *gin.Context) {
 // @Tags 公共方法
 // @Accept json
 // @Produce json
-// @Success 200 {string}  "{"code":200,"msg":"添加成功！"}"
+// @Success 200 {string}  "{ "code": 200, "msg": "更新成功！" }"
 // @Router  /user/updatearticle    [get]
 func UpdateArticle(c *gin.Context) {
 	identification := c.Query("identification")
@@ -160,8 +160,12 @@ func UpdateArticle(c *gin.Context) {
 	if f := models.GetByIdentification(identification); !f {
 		panic("文章不存在！")
 	}
+	err := models.GetByTitle(title)
+	if err == nil {
+		panic("title已经存在！")
+	}
 	if err := models.UpdateArticle(identification, content, category, title); err != nil {
-		panic("更新失败！")
+		panic("更新失败！" + err.Error())
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,
