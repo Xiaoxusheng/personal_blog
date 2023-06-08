@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"personal_blog/db"
+	"time"
 )
 
 type Blog struct {
@@ -29,6 +30,47 @@ func InsertBlogPosts(identification, content, title, create_time, ip, update_tim
 func GetByTitle(title string) error {
 	b := Blog{}
 	err := db.DB.Get(&b, "select * from blog where title=? ", title)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetArticleList(page, number int) []Blog {
+	b := []Blog{}
+	err := db.DB.Select(&b, "select * from blog limit ?,?", (page-1)*number, number)
+	if err != nil {
+		return nil
+	}
+	return b
+}
+
+func GetByIdentification(identification string) bool {
+	b := Blog{}
+	err := db.DB.Get(&b, "select status from blog where identification=?", identification)
+	if err != nil {
+		return false
+	}
+	//如果status为2说明已经删除
+	if b.Status == 2 {
+		return false
+
+	}
+	return true
+
+}
+
+func DeleteArticle(identification string) error {
+	_, err := db.DB.Exec("update blog set status=? where identification=?  ", 2, identification)
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+func UpdateArticle(identification, content, category, title string) error {
+	_, err := db.DB.Exec("update blog set content=?,category=?,title=?,update_time=? where identification=?   ", content, category, title, time.Now().UnixMicro(), identification)
 	if err != nil {
 		return err
 	}

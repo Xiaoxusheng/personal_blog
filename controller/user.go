@@ -14,6 +14,9 @@ import (
 // @Param username formData  string true "用户名"
 // @Param password formData string true "密码"
 // @Schemes
+// @title My awesome API
+// @version 1.0
+// @host localhost:8080
 // @Description 用户名 密码 为必填
 // @Tags 公共方法
 // @Accept multipart/form-data
@@ -52,6 +55,9 @@ func Login(c *gin.Context) {
 // @Param password formData string true "密码"
 // @Param email formData string true "邮箱"
 // @Schemes
+// @title My awesome API
+// @version 1.0
+// @host localhost:8080
 // @Description 用户名 密码 邮箱 为必填
 // @Tags 公共方法
 // @Accept multipart/form-data

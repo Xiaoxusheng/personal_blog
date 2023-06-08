@@ -4,11 +4,11 @@
         "contact": {}
     },
     "paths": {
-        "/user/addtitle": {
+        "/user/addarticle": {
             "post": {
                 "description": "title category content token 为必填",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -49,7 +49,90 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\":200,\"msg\":\"添加好友成功！\"}",
+                        "description": "{\"code\":200,\"msg\":\"添加成功！\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/articlelist": {
+            "get": {
+                "description": "token 为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "获取文章接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "页数,不填默认为1",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "每页大小，默认为20",
+                        "name": "number",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200,\t\"data\": {\"length\": 4, \"list\": [\t{\t\"id\": 1, \"identification\": \"1068dcc0-4fd3-461d-9f4b-0100879457eb\",\t\"content\": \"1\",\t\"status\": 0,\t\"title\": \"1\",\t\"create_time\": \"1686055918562468\",\t\"ip\": \"127.0.0.1\", \"update_time\": \"1\", \"category\": \"1\" },]},\"msg\": \"获取数据成功！\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/deletearticle": {
+            "delete": {
+                "description": "identification token为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "删除文章接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文章唯一标识",
+                        "name": "identification",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 1, \"err\": \"删除文章不存在或者已经删除！\" }",
                         "schema": {
                             "type": "string"
                         }
@@ -137,6 +220,66 @@
                         "description": "{",
                         "schema": {
                             "type": ""
+                        }
+                    }
+                }
+            }
+        },
+        "/user/updatearticle": {
+            "get": {
+                "description": "identification content category title 为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "更新文章接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文章唯一标识",
+                        "name": "identification",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章内容",
+                        "name": "content",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章分类",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章标题",
+                        "name": "title",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"msg\":\"添加成功！\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }

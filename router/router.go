@@ -25,7 +25,10 @@ func Router() *gin.Engine {
 	{
 		user.POST("/login", controller.Login)
 		user.POST("/register", controller.Register)
-		user.POST("/addtitle", middleware.ParseToken(), controller.AddTitle)
+		user.POST("/addarticle", middleware.ParseToken(), controller.AddArticle)
+		user.GET("/articlelist", middleware.ParseToken(), controller.GetArticle)
+		user.DELETE("/deletearticle", middleware.ParseToken(), controller.DeleteArticle)
+		user.GET("/updatearticle", middleware.ParseToken(), controller.UpdateArticle)
 	}
 
 	return r
