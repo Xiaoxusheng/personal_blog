@@ -130,7 +130,7 @@ paths:
       summary: 更新文章接口
       tags:
       - 私有方法
-  /user/addcommmits:
+  /user/addcomments:
     post:
       consumes:
       - multipart/form-data
@@ -159,7 +159,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{ "code": 200, "msg": "更新成功！" }'
+          description: '{"code":200,"msg":"评论成功！"}'
           schema:
             type: string
       summary: 发布评论接口

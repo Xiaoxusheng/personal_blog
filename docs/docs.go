@@ -206,7 +206,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/addcommmits": {
+        "/user/addcomments": {
             "post": {
                 "description": "article_id content token  为必填",
                 "consumes": [
@@ -250,7 +250,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
+                        "description": "{\"code\":200,\"msg\":\"评论成功！\"}",
                         "schema": {
                             "type": "string"
                         }

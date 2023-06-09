@@ -39,7 +39,7 @@ func GetCommentByArticleID(article_id, user_id string) bool {
 }
 
 func InsertComment(article_id, user_id, parent_id, content, comment_id string) error {
-	_, err := db.DB.Exec("insert into comment(article_id,user_id,parent_id,content,comment_id,status,created_time,updated_time) value (?,?,?,?,?,?,?)", article_id, user_id, parent_id, content, comment_id, 0, time.Now().Format("2006-01-02 15:04:05"), time.Now().Format("2006-01-02 15:04:05"))
+	_, err := db.DB.Exec("insert into comment(article_id,user_id,parent_id,content,comment_id,status,created_time,updated_time) value (?,?,?,?,?,?,?,?)", article_id, user_id, parent_id, content, comment_id, 0, time.Now().Format("2006-01-02 15:04:05"), time.Now().Format("2006-01-02 15:04:05"))
 	if err != nil {
 		return err
 	}

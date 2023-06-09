@@ -54,8 +54,8 @@ func GetCommentList(c *gin.Context) {
 // @Tags 公共方法
 // @Accept multipart/form-data
 // @Produce json
-// @Success 200 {string}  "{ "code": 200, "msg": "更新成功！" }"
-// @Router  /user/addcommmits  [post]
+// @Success 200 {string}  "{"code":200,"msg":"评论成功！"}"
+// @Router  /user/addcomments  [post]
 func AddComment(c *gin.Context) {
 	user_id := c.MustGet("Identification").(string)
 	article_id := c.PostForm("article_id")
