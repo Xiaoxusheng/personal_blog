@@ -49,3 +49,15 @@ func InsertUser(identification, username, password, email string) error {
 	}
 	return nil
 }
+
+func GetByUsePad(identification string) bool {
+	user := User{}
+	err := db.DB.Get(&user, "select * from user where identification=? ", identification)
+	if err != nil {
+		return false
+	}
+	if user.Status != 2 {
+		return false
+	}
+	return true
+}

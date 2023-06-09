@@ -34,11 +34,10 @@ func Login(c *gin.Context) {
 	f := models.GetUser(username, password)
 	fmt.Println("f", f.Identification)
 	if f.Identification == "" {
-		c.JSON(http.StatusOK, gin.H{
-			"code": 404,
-			"msg":  "密码错误或账号不存在",
-		})
-		return
+		panic("密码错误或账号不存在！")
+	}
+	if f.Status == 1 {
+		panic("您的账号被冻结！")
 	}
 	token := utility.GetToken(f.Identification)
 	fmt.Println("token", token)
@@ -131,6 +130,45 @@ func Logout(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"msg":  "退出登录成功！",
+	})
+
+}
+
+// @Summary 登录接口
+// @Param username formData  string true "用户名"
+// @Param password formData string true "密码"
+// @Schemes
+// @title My awesome API
+// @version 1.0
+// @host localhost:8080
+// @Description 用户名 密码 为必填
+// @Tags 私有方法
+// @Accept multipart/form-data
+// @Produce json
+// @Success 200 { object } "{"code": 200, "msg": "登陆成功","token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRlbnRseSI6IjZhMmE0NjJjLWExMDctNDhlYS04MmU1LTc0ZTMwODMyN2U2ZiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpc3MiOiJ0ZXN0IiwiZXhwIjoxNjc4Nzg2NTM1fQ.P4dJ_f2UGhKbpiIqHxTxghRKwKIlCpF2XjryHCSnKKk"}"
+// @Router /api/login [post]
+func ApiLogin(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+	if username == "" || password == "" {
+		panic("必填参数不能为空!")
+	}
+	f := models.GetUser(username, password)
+	fmt.Println("f", f.Identification)
+	if f.Identification == "" {
+		panic("密码错误或账号不存在！")
+	}
+	if f.Status != 2 {
+		panic("您没有权限！")
+	}
+	token := utility.GetToken(f.Identification)
+	fmt.Println("token", token)
+	c.JSON(http.StatusOK, gin.H{
+		"code": 200,
+		"msg":  "登陆成功！",
+		"data": gin.H{
+			"token": token,
+		},
 	})
 
 }

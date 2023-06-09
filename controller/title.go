@@ -21,11 +21,11 @@ import (
 // @Param Authorization header string true "token"
 // @Schemes
 // @Description title category只能为0 或1 content token 为必填
-// @Tags 公共方法
+// @Tags 私有方法
 // @Accept multipart/form-data
 // @Produce json
 // @Success 200 {string}  "{"code":200,"msg":"添加成功！"}"
-// @Router  /user/addarticle    [post]
+// @Router   /api/addarticle    [post]
 func AddArticle(c *gin.Context) {
 	title := c.PostForm("title")
 	category := c.PostForm("category")
@@ -103,11 +103,11 @@ func GetArticle(c *gin.Context) {
 // @Param Authorization header string true "token"
 // @Schemes
 // @Description identification token为必填
-// @Tags 公共方法
+// @Tags 私有方法
 // @Accept json
 // @Produce json
 // @Success 200 {string}  "{ "code": 1, "err": "删除文章不存在或者已经删除！" }"
-// @Router  /user/deletearticle    [delete]
+// @Router   /api/deletearticle    [delete]
 func DeleteArticle(c *gin.Context) {
 	identification := c.Query("identification")
 	if identification == "" {
@@ -140,11 +140,11 @@ func DeleteArticle(c *gin.Context) {
 // @Param Authorization header string true "token"
 // @Schemes
 // @Description identification content category title 为必填
-// @Tags 公共方法
+// @Tags 私有方法
 // @Accept json
 // @Produce json
 // @Success 200 {string}  "{ "code": 200, "msg": "更新成功！" }"
-// @Router  /user/updatearticle    [get]
+// @Router  /api/updatearticle    [get]
 func UpdateArticle(c *gin.Context) {
 	identification := c.Query("identification")
 	content := c.Query("content")

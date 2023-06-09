@@ -30,10 +30,18 @@ func Router() *gin.Engine {
 		user.POST("/login", controller.Login)
 		user.GET("/logout", middleware.ParseToken(), controller.Logout)
 		user.POST("/register", controller.Register)
-		user.POST("/addarticle", middleware.ParseToken(), controller.AddArticle)
 		user.GET("/articlelist", middleware.ParseToken(), controller.GetArticle)
-		user.DELETE("/deletearticle", middleware.ParseToken(), controller.DeleteArticle)
-		user.GET("/updatearticle", middleware.ParseToken(), controller.UpdateArticle)
+		user.GET("/commentlist", middleware.ParseToken(), controller.GetCommentList)
+		user.POST("/addcomments", middleware.ParseToken(), controller.AddComment)
+	}
+
+	api := r.Group("/api", middleware.ParseToken(), middleware.ParseApi())
+	r.GET("/api/login", controller.ApiLogin)
+	{
+		api.POST("/addarticle", controller.AddArticle)
+		api.GET("/updatearticle", controller.UpdateArticle)
+		api.DELETE("/deletearticle", controller.DeleteArticle)
+
 	}
 
 	return r

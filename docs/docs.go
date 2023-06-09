@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/user/addarticle": {
+        "/api/addarticle": {
             "post": {
                 "description": "title category只能为0 或1 content token 为必填",
                 "consumes": [
@@ -25,7 +25,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "公共方法"
+                    "私有方法"
                 ],
                 "summary": "添加文章接口",
                 "parameters": [
@@ -61,6 +61,196 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "{\"code\":200,\"msg\":\"添加成功！\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletearticle": {
+            "delete": {
+                "description": "identification token为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "私有方法"
+                ],
+                "summary": "删除文章接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文章唯一标识",
+                        "name": "identification",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 1, \"err\": \"删除文章不存在或者已经删除！\" }",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "description": "用户名 密码 为必填",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "私有方法"
+                ],
+                "summary": "登录接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"msg\": \"登陆成功\",\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRlbnRseSI6IjZhMmE0NjJjLWExMDctNDhlYS04MmU1LTc0ZTMwODMyN2U2ZiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpc3MiOiJ0ZXN0IiwiZXhwIjoxNjc4Nzg2NTM1fQ.P4dJ_f2UGhKbpiIqHxTxghRKwKIlCpF2XjryHCSnKKk\"}",
+                        "schema": {
+                            "type": ""
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updatearticle": {
+            "get": {
+                "description": "identification content category title 为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "私有方法"
+                ],
+                "summary": "更新文章接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文章唯一标识",
+                        "name": "identification",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章内容",
+                        "name": "content",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章分类",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文章标题",
+                        "name": "title",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/addcommmits": {
+            "post": {
+                "description": "article_id content token  为必填",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "发布评论接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文章唯一标识",
+                        "name": "article_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "父级评论",
+                        "name": "parent_id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "评论内容",
+                        "name": "content",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
                         "schema": {
                             "type": "string"
                         }
@@ -112,9 +302,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/deletearticle": {
-            "delete": {
-                "description": "identification token为必填",
+        "/user/commentlist": {
+            "get": {
+                "description": "article_id  token  为必填",
                 "consumes": [
                     "application/json"
                 ],
@@ -124,12 +314,12 @@ const docTemplate = `{
                 "tags": [
                     "公共方法"
                 ],
-                "summary": "删除文章接口",
+                "summary": "获取评论接口",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "文章唯一标识",
-                        "name": "identification",
+                        "name": "article_id",
                         "in": "query",
                         "required": true
                     },
@@ -143,7 +333,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{ \"code\": 1, \"err\": \"删除文章不存在或者已经删除！\" }",
+                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
                         "schema": {
                             "type": "string"
                         }
@@ -263,66 +453,6 @@ const docTemplate = `{
                         "description": "{\t\"code\": 200,\t\"msg\": \"注册成功！\" \t}",
                         "schema": {
                             "type": ""
-                        }
-                    }
-                }
-            }
-        },
-        "/user/updatearticle": {
-            "get": {
-                "description": "identification content category title 为必填",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "公共方法"
-                ],
-                "summary": "更新文章接口",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "文章唯一标识",
-                        "name": "identification",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "文章内容",
-                        "name": "content",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "文章分类",
-                        "name": "category",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "文章标题",
-                        "name": "title",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
