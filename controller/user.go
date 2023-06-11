@@ -31,7 +31,7 @@ func Login(c *gin.Context) {
 	if username == "" || password == "" {
 		panic("必填参数不能为空!")
 	}
-	f := models.GetUser(username, password)
+	f := models.GetUser(username, utility.GetMa5(password))
 	fmt.Println("f", f.Identification)
 	if f.Identification == "" {
 		panic("密码错误或账号不存在！")
@@ -153,7 +153,7 @@ func ApiLogin(c *gin.Context) {
 	if username == "" || password == "" {
 		panic("必填参数不能为空!")
 	}
-	f := models.GetUser(username, password)
+	f := models.GetUser(username, utility.GetMa5(password))
 	fmt.Println("f", f.Identification)
 	if f.Identification == "" {
 		panic("密码错误或账号不存在！")

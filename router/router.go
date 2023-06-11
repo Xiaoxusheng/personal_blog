@@ -36,11 +36,12 @@ func Router() *gin.Engine {
 	}
 
 	api := r.Group("/api", middleware.ParseToken(), middleware.ParseApi())
-	r.GET("/api/login", controller.ApiLogin)
+	r.POST("/api/login", controller.ApiLogin)
 	{
 		api.POST("/addarticle", controller.AddArticle)
 		api.GET("/updatearticle", controller.UpdateArticle)
 		api.DELETE("/deletearticle", controller.DeleteArticle)
+		api.GET("/examinecomment", controller.ExamineComment)
 
 	}
 

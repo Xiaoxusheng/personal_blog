@@ -107,6 +107,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/examinecomment": {
+            "get": {
+                "description": "comment_id status content token  为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "私有方法"
+                ],
+                "summary": "审核评论接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "评论唯一标识",
+                        "name": "comment_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "审核状态 0 表示未审核 1 表示审核通过 2 表示审核不通过",
+                        "name": "status",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{ \"code\": 200, \"msg\": \"审核成功！\" }",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "description": "用户名 密码 为必填",
@@ -333,7 +379,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{ \"code\": 200, \"msg\": \"更新成功！\" }",
+                        "description": "{\"code\": 200,\"data\": {\"list\": [{\"id\": 1,\"article_id\": \"52fd3b87-9572-4330-9371-9b7cf54628a2\",\t\"user_id\": \"e5a6071b-baaf-45aa-a587-784d0ff9a575\",\t\"parent_id\": \"\",\"comment_id\": \"\",\"content\": \"哈哈哈\",\"status\": 0,\"created_time\": \"2023-06-09T17:26:30Z\", \"updated_time\": \"2023-06-09T17:26:30Z\"\t},{\"id\": 2,\"article_id\": \"52fd3b87-9572-4330-9371-9b7cf54628a2\", \"user_id\": \"e5a6071b-baaf-45aa-a587-784d0ff9a575\",\"parent_id\": \"\",\"comment_id\": \"e725fe87-a881-4cc9-ad7a-bc48ccdb97dd\",\"content\": \"哈哈哈\", \"status\": 0,\"created_time\": \"2023-06-09T17:46:38Z\", \"updated_time\": \"2023-06-09T17:46:38Z\"\t}, ] }, \"msg\": \"获取数据成功！\"} ",
                         "schema": {
                             "type": "string"
                         }
