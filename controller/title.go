@@ -45,7 +45,8 @@ func AddArticle(c *gin.Context) {
 	}
 	times := time.Now().UnixMicro()
 	ip := c.ClientIP()
-	err = models.InsertBlogPosts(utility.SetUuid(), content, title, strconv.FormatInt(times, 10), ip, strconv.FormatInt(times, 10), categorys, 0)
+	url := ""
+	err = models.InsertBlogPosts(utility.SetUuid(), content, title, strconv.FormatInt(times, 10), ip, strconv.FormatInt(times, 10), url, categorys, 0)
 	if err != nil {
 		panic("新增文章失败！")
 	}

@@ -22,14 +22,25 @@ func Test_redis(t *testing.T) {
 		log.Println("连接redis 成功!")
 	}
 	result, err := client.Keys(ctx, "*").Result()
-	r2, _ := client.Get(ctx, "e5a6071b-baaf-45aa-a587-784d0ff9a575").Result()
-	r1, err := client.Exists(ctx, "e5a6071b-baaf-45aa-a587-784d0ff9a575").Result()
 	if err != nil {
 		return
 	}
+	//_, err = client.SAdd(ctx, "img", 1, 2, 3, 4).Result()
+	//if err != nil {
+	//	return
+	//}
+	//
+	//f, err := client.SIsMember(ctx, "img", 1).Result()
+	//if err != nil {
+	//	log.Panicln("1", err)
+	//
+	//}
+	//s, _ := client.SMembers(ctx, "img").Result()
+	d, err := client.SRem(ctx, "img", 1, 2, 3, 4).Result()
 	if err != nil {
 		return
 	}
 
-	fmt.Println(result, r1, r2)
+	fmt.Println(result, d)
+
 }

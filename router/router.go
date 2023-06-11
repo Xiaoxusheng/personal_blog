@@ -33,6 +33,7 @@ func Router() *gin.Engine {
 		user.GET("/articlelist", middleware.ParseToken(), controller.GetArticle)
 		user.GET("/commentlist", middleware.ParseToken(), controller.GetCommentList)
 		user.POST("/addcomments", middleware.ParseToken(), controller.AddComment)
+		user.POST("/file", middleware.ParseToken(), controller.File)
 	}
 
 	api := r.Group("/api", middleware.ParseToken(), middleware.ParseApi())

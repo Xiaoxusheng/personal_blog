@@ -15,11 +15,12 @@ type Blog struct {
 	Create_time    string `json:"create_time"`
 	IP             string `json:"ip"`
 	Update_time    string `json:"update_time"`
+	Url            string `json:"img_url"`
 	Category       string `json:"category"`
 }
 
-func InsertBlogPosts(identification, content, title, create_time, ip, update_time string, category int, status int) error {
-	_, err := db.DB.Exec("insert  into blog(identification,content,status,title,create_time,ip,update_time,category) value (?,?,?,?,?,?,?,?)", identification, content, status, title, create_time, ip, update_time, category)
+func InsertBlogPosts(identification, content, title, create_time, ip, update_time, url string, category int, status int) error {
+	_, err := db.DB.Exec("insert  into blog(identification,content,status,title,create_time,ip,update_time,category,url) value (?,?,?,?,?,?,?,?)", identification, content, status, title, create_time, ip, update_time, category, url)
 	if err != nil {
 		fmt.Println(err)
 		return err

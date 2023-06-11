@@ -42,17 +42,6 @@ func GetToken(identification string) string {
 	//生成token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(MySigningKey)
-	//i, err := db.Rdb.Exists(ctx, identif).Result()
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return ""
-	//}
-	//if i == 1 {
-	//	panic(&ResponseError{
-	//		Code: 1,
-	//		Msg:  "账号已经登录，只允许一台设备登录！",
-	//	})
-	//}
 	//生成token同时存入redis
 	result, err := db.Rdb.Set(ctx, identification, ss, time.Hour*24).Result()
 	if err != nil {

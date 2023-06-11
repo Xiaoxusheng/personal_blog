@@ -170,5 +170,4 @@ func ApiLogin(c *gin.Context) {
 			"token": token,
 		},
 	})
-
 }
