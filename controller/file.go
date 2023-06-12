@@ -2,11 +2,16 @@ package controller
 
 import (
 	"context"
+	"github.com/fogleman/gg"
 	"github.com/gin-gonic/gin"
+	"image/color"
+	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"personal_blog/db"
 	"strconv"
+	"time"
 )
 
 // 上传文件
@@ -67,4 +72,55 @@ func File(c *gin.Context) {
 			"url": "http://116.198.44.154:8080/img/" + filename,
 		},
 	})
+}
+
+func CreateImg(c *gin.Context) {
+	imgname := c.Query("imgname")
+
+	// create a new context with the specified size
+	width := 1080
+	height := 1920
+	dc := gg.NewContext(width, height)
+
+	orange, err := gg.LoadImage("./img/o.png")
+	// draw a rectangle
+	dc.SetColor(color.RGBA{255, 96, 0, 255})
+	dc.DrawRectangle(0, 0, float64(width), float64(height))
+	dc.Fill()
+
+	// draw text
+	face, err := gg.LoadFontFace("./img/t.ttf", 60)
+	if err != nil {
+		log.Panicln(err)
+		return
+	}
+	f, err := gg.LoadFontFace("./img/3.ttf", 300)
+
+	dc.SetFontFace(face)
+	dc.SetColor(color.RGBA{245, 239, 231, 255})
+	//dc.DrawStringAnchored("leilong", float64(width)/2, float64(height)/2, 0.5, 0.5)
+	lens := dc.WordWrap(imgname, float64(width))
+	lheight := 80
+	for i, s := range lens {
+		dc.DrawString(s+"\n", 0, 300+float64(i)*float64(lheight))
+	}
+
+	dc.SetFontFace(f)
+	dc.DrawStringAnchored("IPhone", float64(width)/2, float64(80), 0.5, 0.5)
+	dc.SetColor(color.RGBA{245, 239, 231, 30})
+	//橘子图标
+	dc.DrawImageAnchored(orange, width-120, height-140, 0.5, 0.5)
+
+	rand.Seed(time.Now().UnixMicro())
+	for i := 0; i < 5; i++ {
+		dc.Push()
+		dc.RotateAbout(gg.Radians(40), 0, float64(height/2))
+		dc.DrawStringAnchored("@Maving", float64(rand.Int63n(1000)), float64(rand.Int63n(1920)), 0.5, 0.5)
+		dc.Pop()
+		dc.Translate(50, 50)
+	}
+	// save the image to a file
+	if err := dc.SavePNG("./img/1.jpg"); err != nil {
+		panic(err)
+	}
 }

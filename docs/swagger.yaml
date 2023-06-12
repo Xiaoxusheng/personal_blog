@@ -263,6 +263,34 @@ paths:
       summary: 获取评论接口
       tags:
       - 公共方法
+  /user/file:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        上传文件
+        file token为必填
+      parameters:
+      - description: 表单name
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":1,"msg":"\u0001个文件上传成功","url":"127.0.0.1:8080/img/12.png"}'
+          schema:
+            type: string
+      summary: 上传文件接口
+      tags:
+      - 公共方法
   /user/login:
     post:
       consumes:

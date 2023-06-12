@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"io"
+	"os"
 	"personal_blog/controller"
 	docs "personal_blog/docs"
 	"personal_blog/middleware"
@@ -45,7 +47,8 @@ func Router() *gin.Engine {
 		api.GET("/examinecomment", controller.ExamineComment)
 
 	}
-
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 	return r
 
 }

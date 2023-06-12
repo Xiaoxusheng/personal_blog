@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"personal_blog/models"
@@ -31,6 +32,7 @@ func LimitIp() gin.HandlerFunc {
 
 		//查询次数
 		num := models.GetIpNumber()
+		fmt.Println("ip", num)
 		if num > 60 {
 			//加黑名单
 			models.InsertIpbyBans(ip, strconv.FormatInt(time.Now().Unix(), 10))

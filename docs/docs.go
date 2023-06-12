@@ -387,6 +387,45 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/file": {
+            "post": {
+                "description": "上传文件\nfile token为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "上传文件接口",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "表单name",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":1,\"msg\":\"\\u0001个文件上传成功\",\"url\":\"127.0.0.1:8080/img/12.png\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/user/login": {
             "post": {
                 "description": "用户名 密码 为必填",
