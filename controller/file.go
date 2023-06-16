@@ -107,8 +107,9 @@ func CreateImg(c *gin.Context) {
 	dc.SetColor(color.RGBA{245, 239, 231, 255})
 	list := make([]string, 0)
 	strlengths, _ := dc.MeasureString(strings.ReplaceAll(str, " ", ""))
+	fmt.Println("len", strlengths)
 	if strlengths < 1080 {
-		dc.DrawString(s, 40, 350+float64(0)*float64(lheight))
+		dc.DrawString(str, 40, 350+float64(0)*float64(lheight))
 	} else {
 		for _, r := range strings.ReplaceAll(str, " ", "") {
 			width, h := dc.MeasureString(string(r))
