@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"fmt"
 	"github.com/fogleman/gg"
 	"github.com/gin-gonic/gin"
 	"image/color"
@@ -11,6 +12,7 @@ import (
 	"os"
 	"personal_blog/db"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -75,11 +77,14 @@ func File(c *gin.Context) {
 }
 
 func CreateImg(c *gin.Context) {
-	imgname := c.Query("imgname")
+	str := c.Query("str")
 
 	// create a new context with the specified size
 	width := 1080
-	height := 1920
+	height := 1960
+	lheight := 65
+	s := ""
+	var k float64 = 0
 	dc := gg.NewContext(width, height)
 
 	orange, err := gg.LoadImage("./img/o.png")
@@ -96,18 +101,54 @@ func CreateImg(c *gin.Context) {
 	}
 	f, err := gg.LoadFontFace("./img/3.ttf", 300)
 
+	l, err := gg.LoadFontFace("./img/4.ttf", 40)
+
 	dc.SetFontFace(face)
 	dc.SetColor(color.RGBA{245, 239, 231, 255})
-	//dc.DrawStringAnchored("leilong", float64(width)/2, float64(height)/2, 0.5, 0.5)
-	lens := dc.WordWrap(imgname, float64(width))
-	lheight := 80
-	for i, s := range lens {
-		dc.DrawString(s+"\n", 0, 300+float64(i)*float64(lheight))
+	list := make([]string, 0)
+	strlengths, _ := dc.MeasureString(strings.ReplaceAll(str, " ", ""))
+	if strlengths < 1080 {
+		dc.DrawString(s, 40, 350+float64(0)*float64(lheight))
+	} else {
+		for _, r := range strings.ReplaceAll(str, " ", "") {
+			width, h := dc.MeasureString(string(r))
+			s += string(r)
+			k += width
+			if k >= 1000 {
+				list = append(list, s)
+				k = 0
+				s = ""
+			}
+			fmt.Println(h)
+			fmt.Printf("Character '%c' has width %.2f %v\n", r, width, k)
+		}
+		for i, s := range list {
+			fmt.Println(i, s)
+			if i == 0 {
+				dc.DrawString(s, 40, 350+float64(i)*float64(lheight))
+				continue
+			}
+			dc.DrawString(s, 0, 350+float64(i)*float64(lheight))
+		}
 	}
+	//for _, i2 := range str {
+	//	s += string(i2)
+	//	if k%18 == 0 {
+	//		lens = append(lens, s)
+	//		s = ""
+	//	}
+	//	k++
+	//}
+
+	//dc.DrawStringWrapped(str, 00, 350, 0.5, 0.5, 1080, 1, 0)
+
+	dc.SetFontFace(l)
+	//logo
+	dc.DrawStringAnchored("make with github.com/fogleman/gg", 430, float64(height-100), 0.5, 0.5)
 
 	dc.SetFontFace(f)
-	dc.DrawStringAnchored("IPhone", float64(width)/2, float64(80), 0.5, 0.5)
-	dc.SetColor(color.RGBA{245, 239, 231, 30})
+	dc.DrawStringAnchored("BLOg", float64(width)/2, float64(80), 0.5, 0.5)
+	dc.SetColor(color.RGBA{245, 239, 231, 10})
 	//橘子图标
 	dc.DrawImageAnchored(orange, width-120, height-140, 0.5, 0.5)
 
@@ -120,7 +161,10 @@ func CreateImg(c *gin.Context) {
 		dc.Translate(50, 50)
 	}
 	// save the image to a file
-	if err := dc.SavePNG("./img/1.jpg"); err != nil {
-		panic(err)
+	if err := dc.SavePNG("./img/g.png"); err != nil {
+		fmt.Println("错误在", err)
 	}
+	fmt.Println("保存成功")
+
+	c.File("./img/g.png")
 }

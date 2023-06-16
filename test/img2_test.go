@@ -50,6 +50,7 @@ func Test_1(t *testing.T) {
 	for i, s2 := range list {
 		d.DrawString(s2, 50, 200+float64(i)*float64(lheight))
 	}
+
 	d.SetColor(color.RGBA{245, 239, 231, 30})
 	d.SetFontFace(f)
 

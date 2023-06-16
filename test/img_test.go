@@ -35,12 +35,16 @@ func Test_img(T *testing.T) {
 	dc.SetFontFace(face)
 	dc.SetColor(color.RGBA{245, 239, 231, 255})
 	//dc.DrawStringAnchored("leilong", float64(width)/2, float64(height)/2, 0.5, 0.5)
-	lens := dc.WordWrap(str, float64(width)-float64(50))
-	lheight := 80
-	for i, s := range lens {
-		dc.DrawString(s+"\n", 50, 350+float64(i)*float64(lheight))
-	}
+	//lens := dc.WordWrap(str, float64(width))
+	//lheight := 80
+	//for i, s := range lens {
+	//	dc.DrawString(s+"\n", 50, 350+float64(i)*float64(lheight))
+	//}
+	dc.DrawStringWrapped(str, 00, 350, 0, 0, 100, 1, 0)
+	l, h := dc.MeasureMultilineString(str, 1)
+	fmt.Println("str", l, h)
 
+	//dc.DrawStringWrapped(str, 50, 300, 0, 0, 1080, 1.2, 0)
 	dc.SetFontFace(f)
 	dc.DrawStringAnchored("Class Schedule", float64(width)/2, float64(80), 0.5, 0.5)
 	dc.SetColor(color.RGBA{245, 239, 231, 30})
