@@ -85,6 +85,7 @@ func CreateImg(c *gin.Context) {
 	lheight := 65
 	s := ""
 	var k float64 = 0
+	var h float64 = 0
 	dc := gg.NewContext(width, height)
 
 	orange, err := gg.LoadImage("./img/o.png")
@@ -109,12 +110,17 @@ func CreateImg(c *gin.Context) {
 	strlengths, _ := dc.MeasureString(strings.ReplaceAll(str, " ", ""))
 	fmt.Println("len", strlengths)
 	if strlengths < 1080 {
+		//不足1行
 		dc.DrawString(str, 40, 350+float64(0)*float64(lheight))
 	} else {
+		//多行
 		for _, r := range strings.ReplaceAll(str, " ", "") {
-			width, h := dc.MeasureString(string(r))
+			width, heights := dc.MeasureString(string(r))
+			//拼接字符串
 			s += string(r)
+			//计算宽度，满1行
 			k += width
+			h += heights
 			if k >= 1000 {
 				list = append(list, s)
 				k = 0
@@ -132,24 +138,18 @@ func CreateImg(c *gin.Context) {
 			dc.DrawString(s, 0, 350+float64(i)*float64(lheight))
 		}
 	}
-	//for _, i2 := range str {
-	//	s += string(i2)
-	//	if k%18 == 0 {
-	//		lens = append(lens, s)
-	//		s = ""
-	//	}
-	//	k++
-	//}
 
 	//dc.DrawStringWrapped(str, 00, 350, 0.5, 0.5, 1080, 1, 0)
 
 	dc.SetFontFace(l)
 	//logo
+	dc.SetHexColor("#080202")
 	dc.DrawStringAnchored("make with github.com/fogleman/gg", 430, float64(height-100), 0.5, 0.5)
 
+	dc.SetColor(color.RGBA{245, 239, 231, 255})
 	dc.SetFontFace(f)
 	dc.DrawStringAnchored("BLOg", float64(width)/2, float64(80), 0.5, 0.5)
-	dc.SetColor(color.RGBA{245, 239, 231, 10})
+	dc.SetColor(color.RGBA{245, 239, 231, 20})
 	//橘子图标
 	dc.DrawImageAnchored(orange, width-120, height-140, 0.5, 0.5)
 
