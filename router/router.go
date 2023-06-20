@@ -25,6 +25,7 @@ func Router() *gin.Engine {
 
 	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.Static("/img", "./img")
 
 	user := r.Group("/user")
 

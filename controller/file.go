@@ -25,6 +25,9 @@ import (
 // @Description 上传文件
 // @Description file token为必填
 // @Tags 公共方法
+// @title My awesome API
+// @version 1.0
+// @host localhost:8080
 // @Accept json
 // @Produce json
 // @Success 200 {string}  "{"code":1,"msg":"\u0001个文件上传成功","url":"127.0.0.1:8080/img/12.png"}
@@ -76,6 +79,19 @@ func File(c *gin.Context) {
 	})
 }
 
+// 上传文件
+// PingExample godoc
+// @Summary  生成图片接口
+// @Schemes
+// @Param str query string true "要显示的文字"
+// @Param token header string true "token"
+// @Description 生成图片
+// @Description file token为必填
+// @Tags 公共方法
+// @Accept json
+// @Produce json
+// @Success 200 {string}  "图片文件"
+// @Router  /user/picture      [get]
 func CreateImg(c *gin.Context) {
 	str := c.Query("str")
 
@@ -150,7 +166,7 @@ func CreateImg(c *gin.Context) {
 	dc.DrawStringAnchored("BLOg", float64(width)/2, float64(80), 0.5, 0.5)
 	dc.SetColor(color.RGBA{245, 239, 231, 20})
 	//橘子图标
-	dc.DrawImageAnchored(orange, width-120, height-140, 0.5, 0.5)
+	dc.DrawImageAnchored(orange, width-130, height-145, 0.5, 0.5)
 
 	rand.Seed(time.Now().UnixMicro())
 	for i := 0; i < 5; i++ {
@@ -164,7 +180,7 @@ func CreateImg(c *gin.Context) {
 	if err := dc.SavePNG("./img/g.png"); err != nil {
 		fmt.Println("错误在", err)
 	}
-	fmt.Println("保存成功")
+	//fmt.Println("保存成功")
 
 	c.File("./img/g.png")
 }

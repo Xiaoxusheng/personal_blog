@@ -338,6 +338,34 @@ paths:
       summary: 退出登录接口
       tags:
       - 公共方法
+  /user/picture:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        生成图片
+        file token为必填
+      parameters:
+      - description: 要显示的文字
+        in: query
+        name: str
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 图片文件
+          schema:
+            type: string
+      summary: 生成图片接口
+      tags:
+      - 公共方法
   /user/register:
     post:
       consumes:

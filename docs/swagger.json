@@ -486,6 +486,45 @@
                 }
             }
         },
+        "/user/picture": {
+            "get": {
+                "description": "生成图片\nfile token为必填",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "公共方法"
+                ],
+                "summary": "生成图片接口",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "要显示的文字",
+                        "name": "str",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "图片文件",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/user/register": {
             "post": {
                 "description": "用户名 密码 邮箱 为必填",
