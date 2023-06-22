@@ -1,3 +1,25 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (7 handlers)
+[GIN-debug] GET    /img/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (7 handlers)
+[GIN-debug] HEAD   /img/*filepath            --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (7 handlers)
+[GIN-debug] POST   /user/login               --> personal_blog/controller.Login (7 handlers)
+[GIN-debug] GET    /user/logout              --> personal_blog/controller.Logout (8 handlers)
+[GIN-debug] POST   /user/register            --> personal_blog/controller.Register (7 handlers)
+[GIN-debug] GET    /user/articlelist         --> personal_blog/controller.GetArticle (8 handlers)
+[GIN-debug] GET    /user/commentlist         --> personal_blog/controller.GetCommentList (8 handlers)
+[GIN-debug] POST   /user/addcomments         --> personal_blog/controller.AddComment (8 handlers)
+[GIN-debug] POST   /user/file                --> personal_blog/controller.File (8 handlers)
+[GIN-debug] GET    /user/picture             --> personal_blog/controller.CreateImg (7 handlers)
+[GIN-debug] POST   /api/login                --> personal_blog/controller.ApiLogin (7 handlers)
+[GIN-debug] POST   /api/addarticle           --> personal_blog/controller.AddArticle (9 handlers)
+[GIN-debug] GET    /api/updatearticle        --> personal_blog/controller.UpdateArticle (9 handlers)
+[GIN-debug] DELETE /api/deletearticle        --> personal_blog/controller.DeleteArticle (9 handlers)
+[GIN-debug] GET    /api/examinecomment       --> personal_blog/controller.ExamineComment (9 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
