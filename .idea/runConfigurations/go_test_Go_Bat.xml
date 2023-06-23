@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go test Go-Bat" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
+    <module name="Go-Bat" />
+    <working_directory value="$PROJECT_DIR$/../Go-Bat" />
+    <kind value="DIRECTORY" />
+    <package value="personal_blog" />
+    <directory value="$PROJECT_DIR$/../Go-Bat" />
+    <filePath value="$PROJECT_DIR$" />
+    <framework value="gotest" />
+    <method v="2" />
+  </configuration>
+</component>
