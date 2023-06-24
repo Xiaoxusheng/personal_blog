@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="152e4045-836d-47f9-9c10-bd11996d13a7" name="ftp" url="http://116.198.44.154:8080">
-        <fileTransfer rootFolder="/www/wwwroot/lei/www/wwwroot/lei" host="116.198.44.154" port="21">
+        <fileTransfer rootFolder="/www/wwwroot/lei" accessType="SFTP" host="116.198.44.154" port="22" sshConfigId="7937da8a-5b04-4a63-943e-bb17729092ed" sshConfig="root@116.198.44.154:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" shareSSLContext="true" />
           </advancedOptions>

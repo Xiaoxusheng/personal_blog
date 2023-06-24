@@ -129,8 +129,9 @@ func CreateImg(c *gin.Context) {
 		dc.DrawString(str, 40, 350+float64(0)*float64(lheight))
 	} else {
 		//多行
-		for _, r := range strings.ReplaceAll(str, " ", "") {
+		for i, r := range strings.ReplaceAll(str, " ", "") {
 			width, heights := dc.MeasureString(string(r))
+			wd, _ := dc.MeasureString(str[i:])
 			//拼接字符串
 			s += string(r)
 			//计算宽度，满1行
@@ -141,6 +142,13 @@ func CreateImg(c *gin.Context) {
 				k = 0
 				s = ""
 			}
+			fmt.Println("i", i, len(str))
+			if wd < 1000 && i == len(str)-2 || i == len(str)-3 || i == len(str)-1 {
+				fmt.Println("i", i, len(str))
+				fmt.Println(wd)
+				list = append(list, s)
+			}
+
 			fmt.Println(h)
 			fmt.Printf("Character '%c' has width %.2f %v\n", r, width, k)
 		}
