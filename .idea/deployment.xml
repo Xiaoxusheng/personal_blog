@@ -5,7 +5,7 @@
       <paths name="Gobat">
         <serverdata>
           <mappings>
-            <mapping deploy="/www/wwwroot/GoBat" local="$PROJECT_DIR$/../Go-Bat" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/../Go-Bat" web="/" />
             <mapping local="" />
           </mappings>
         </serverdata>
