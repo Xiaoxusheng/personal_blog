@@ -70,7 +70,7 @@ func (tb *TokenBucket) TakeToken() bool {
 	diff := now.Sub(tb.timestamp)
 
 	//令牌数目
-	count := int(diff / tb.rate)
+	count := int(diff * tb.rate)
 
 	if count > 0 {
 		tb.tokens += count
