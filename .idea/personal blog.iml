@@ -6,5 +6,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Go-Bat" />
+    <orderEntry type="module" module-name="力扣" />
   </component>
 </module>
