@@ -70,7 +70,7 @@ func (tb *TokenBucket) TakeToken() bool {
 	diff := now.Sub(tb.timestamp)
 
 	//令牌数目
-	count := int(diff * tb.rate)
+	count := int((diff * tb.rate).Seconds())
 
 	if count > 0 {
 		tb.tokens += count
@@ -89,7 +89,7 @@ func (tb *TokenBucket) TakeToken() bool {
 	return false
 }
 
-// LimitIP TODO IP限流中间件
+// RequetLimite TODO IP限流中间件
 func RequetLimite() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tb := NewTokenBucket(10, time.Second)
