@@ -11,7 +11,6 @@ import (
 type TokenBucket struct {
 	capacity  chan int      // 令牌桶容量
 	rate      time.Duration // 令牌生成速率
-	tokens    int           // 当前令牌数量
 	timestamp time.Time     // 上次生成令牌的时间
 	//mutex     sync.Mutex    // 互斥锁，保证并发安全
 }
@@ -20,10 +19,8 @@ func NewTokenBucket(tokens int, rate time.Duration) *TokenBucket {
 	return &TokenBucket{
 		capacity:  make(chan int, tokens),
 		rate:      rate,
-		tokens:    tokens,
 		timestamp: time.Now(),
 	}
-
 }
 
 /*
@@ -42,18 +39,19 @@ func (tb *TokenBucket) TakeToken(i int) bool {
 	fmt.Println(tb.rate, t)
 	//	 生成的令牌
 	rate := int((tb.rate * t).Seconds())
-	fmt.Println("rate", rate, "t", t, "tb", tb.tokens, "tb.capacity", len(tb.capacity))
+	fmt.Println("rate", rate, "t", t, "tb", len(tb.capacity), "tb.capacity", len(tb.capacity), "rate+tb.tokens < cap(tb.capacity)", rate+len(tb.capacity) < cap(tb.capacity))
 
 	if rate > 0 {
 		var mest int
-		if rate+tb.tokens > cap(tb.capacity) && tb.tokens != cap(tb.capacity) {
-			mest = rate + tb.tokens - len(tb.capacity)
+		if rate+len(tb.capacity) > cap(tb.capacity) && len(tb.capacity) != cap(tb.capacity) {
+			mest = rate + len(tb.capacity) - len(tb.capacity)
 			fmt.Println("mest", mest)
 			for i := 0; i < mest; i++ {
 				tb.capacity <- i
 			}
 		}
-		if rate+tb.tokens < cap(tb.capacity) {
+
+		if rate+len(tb.capacity) < cap(tb.capacity) {
 			//桶里面放入令牌
 			for i := 0; i < rate; i++ {
 				tb.capacity <- 1
@@ -75,14 +73,14 @@ func (tb *TokenBucket) TakeToken(i int) bool {
 
 func Test_limit(t *testing.T) {
 	//   NewTokenBucket
-	tb := NewTokenBucket(10, 1)
+	tb := NewTokenBucket(10, 2)
 	go func() {
-		for i := 0; i < tb.tokens; i++ {
+		for i := 0; i < cap(tb.capacity); i++ {
 			tb.capacity <- i
 		}
 	}()
 
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 50; i++ {
 		wg.Add(1)
 		go tb.TakeToken(i)
 	}
