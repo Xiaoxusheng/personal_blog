@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"log"
 	"sync"
 	"testing"
 	"time"
@@ -39,13 +40,13 @@ func (tb *TokenBucket) TakeToken(i int) bool {
 	fmt.Println(tb.rate, t)
 	//	 生成的令牌
 	rate := int((tb.rate * t).Seconds())
-	fmt.Println("rate", rate, "t", t, "tb", len(tb.capacity), "tb.capacity", len(tb.capacity), "rate+tb.tokens < cap(tb.capacity)", rate+len(tb.capacity) < cap(tb.capacity))
+	fmt.Println("rate", rate, "t", t, "cap", cap(tb.capacity), "剩余令牌数", len(tb.capacity), "rate+tb.tokens < cap(tb.capacity)", rate+len(tb.capacity) < cap(tb.capacity))
 
 	if rate > 0 {
 		var mest int
 		if rate+len(tb.capacity) > cap(tb.capacity) && len(tb.capacity) != cap(tb.capacity) {
-			mest = rate + len(tb.capacity) - len(tb.capacity)
-			fmt.Println("mest", mest)
+			mest = cap(tb.capacity) - len(tb.capacity)
+			fmt.Println("mest", mest, cap(tb.capacity), len(tb.capacity))
 			for i := 0; i < mest; i++ {
 				tb.capacity <- i
 			}
@@ -63,17 +64,17 @@ func (tb *TokenBucket) TakeToken(i int) bool {
 	//  取令牌
 	if len(tb.capacity) > 0 {
 		<-tb.capacity
-		fmt.Println("第", i, true)
+		log.Println("第", i, true)
 		return true
 	}
-	fmt.Println("第", i, false)
+	log.Println("第", i, false)
 	return false
 
 }
 
 func Test_limit(t *testing.T) {
 	//   NewTokenBucket
-	tb := NewTokenBucket(10, 2)
+	tb := NewTokenBucket(20, 10)
 	go func() {
 		for i := 0; i < cap(tb.capacity); i++ {
 			tb.capacity <- i
