@@ -2,17 +2,10 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="152e4045-836d-47f9-9c10-bd11996d13a7" name="ftp" url="http://116.198.44.154:8080">
-        <fileTransfer rootFolder="/www/Go-Bat" accessType="SFTP" host="116.198.44.154" port="22" sshConfigId="7937da8a-5b04-4a63-943e-bb17729092ed" sshConfig="root@116.198.44.154:22 password">
+      <webServer id="152e4045-836d-47f9-9c10-bd11996d13a7" name="ftp" url="">
+        <fileTransfer rootFolder="/root" accessType="SFTP" host="xlei.love" port="22" sshConfigId="762b24fa-327e-4458-a178-243ffd0ca08b" sshConfig="root@xlei.love:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" shareSSLContext="true" />
-          </advancedOptions>
-        </fileTransfer>
-      </webServer>
-      <webServer id="23ec1b7a-d414-43fe-97b9-c6ab9bba3469" name="Gobat" url="http://116.198.44.154:5000">
-        <fileTransfer rootFolder="/www/Go-Bat" accessType="SFTP" host="116.198.44.154" port="22" sshConfigId="7937da8a-5b04-4a63-943e-bb17729092ed" sshConfig="root@116.198.44.154:22 password">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveCommand="LIST" keepAliveTimeout="0" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

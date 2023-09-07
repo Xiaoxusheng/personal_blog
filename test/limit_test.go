@@ -74,7 +74,7 @@ func (tb *TokenBucket) TakeToken(i int) bool {
 
 func Test_limit(t *testing.T) {
 	//   NewTokenBucket
-	tb := NewTokenBucket(20, 10)
+	tb := NewTokenBucket(10, 10)
 	go func() {
 		for i := 0; i < cap(tb.capacity); i++ {
 			tb.capacity <- i
