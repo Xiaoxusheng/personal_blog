@@ -5,7 +5,7 @@
       <webServer id="152e4045-836d-47f9-9c10-bd11996d13a7" name="ftp" url="">
         <fileTransfer rootFolder="/root" accessType="SFTP" host="xlei.love" port="22" sshConfigId="762b24fa-327e-4458-a178-243ffd0ca08b" sshConfig="root@xlei.love:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
